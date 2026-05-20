@@ -11,6 +11,7 @@ const readFileAsText = (file) => {
 export const analyzeScamText = async ({ text = "", file } = {}) => {
   let response;
   let requestKind = "json";
+  const API_BASE = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 
   try {
     if (
@@ -21,7 +22,7 @@ export const analyzeScamText = async ({ text = "", file } = {}) => {
     ) {
       requestKind = "json-textfile";
       const fileText = await readFileAsText(file);
-      response = await fetch("/api/analyze", {
+      response = await fetch(`${API_BASE}/api/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,13 +38,13 @@ export const analyzeScamText = async ({ text = "", file } = {}) => {
         formData.append("text", text);
       }
 
-      response = await fetch("/api/analyze", {
+      response = await fetch(`${API_BASE}/api/analyze`, {
         method: "POST",
         body: formData,
       });
     } else {
       requestKind = "json";
-      response = await fetch("/api/analyze", {
+      response = await fetch(`${API_BASE}/api/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
