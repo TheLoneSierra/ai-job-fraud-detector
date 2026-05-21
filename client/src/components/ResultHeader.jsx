@@ -2,6 +2,11 @@ import { FileText, Clock3, Upload } from "lucide-react";
 
 const ResultHeader = ({ data }) => {
     const sourceLabel = data?.source || (data?.sourceFile ? "Uploaded document" : "Text Input");
+    const cache = data?.cache;
+    const cacheLabel =
+        cache?.status === "cache-first"
+            ? "Loaded from cache"
+            : `Intel cache: ${cache?.status}`;
     const reportDate = new Date().toLocaleString();
 
     return (
@@ -30,6 +35,12 @@ const ResultHeader = ({ data }) => {
                         <Upload size={16} />
                         {data.sourceFile || "No attachment"}
                     </span>
+
+                    {cache?.status && cache.status !== "miss" && (
+                        <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-cyan-200">
+                            {cacheLabel}
+                        </span>
+                    )}
                 </div>
             </div>
 

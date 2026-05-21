@@ -1,4 +1,4 @@
-import { AlertTriangle, Globe, Siren } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 
 const RedFlagsCard = ({ redFlags = [] }) => {
     const flags = redFlags.length

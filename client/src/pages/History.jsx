@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trash2 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const History = () => {
-    const [history, setHistory] = useState([]);
-
-    useEffect(() => {
-        const savedHistory = JSON.parse(localStorage.getItem("hiresafe_analysis_history") || "[]");
-        setHistory(savedHistory);
-    }, []);
+    const [history, setHistory] = useState(() =>
+        JSON.parse(localStorage.getItem("hiresafe_analysis_history") || "[]"),
+    );
 
     const handleDelete = (id) => {
         const updated = history.filter((entry) => entry.id !== id);

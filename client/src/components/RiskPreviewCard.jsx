@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { AlertTriangle, BadgeDollarSign, Flag } from "lucide-react";
 
 const samplePreview = {
@@ -29,9 +28,7 @@ const samplePreview = {
 };
 
 const RiskPreviewCard = () => {
-    const [preview, setPreview] = useState(samplePreview);
-
-    useEffect(() => {
+    const preview = (() => {
         try {
             const history = JSON.parse(localStorage.getItem("hiresafe_analysis_history") || "[]");
 
@@ -41,7 +38,7 @@ const RiskPreviewCard = () => {
                 const riskLevel = latest.riskLevel || (riskScore > 75 ? "High" : riskScore > 45 ? "Medium" : "Low");
                 const redFlags = Array.isArray(latest.redFlags) ? latest.redFlags : [];
 
-                setPreview({
+                return {
                     id: latest.id || samplePreview.id,
                     score: riskScore,
                     level: riskLevel,
@@ -66,12 +63,14 @@ const RiskPreviewCard = () => {
                             style: "blue",
                         },
                     ],
-                });
+                };
             }
         } catch (error) {
             console.warn("Could not load saved preview data:", error);
         }
-    }, []);
+
+        return samplePreview;
+    })();
 
     const getStyleClasses = (style) => {
         if (style === "red") {

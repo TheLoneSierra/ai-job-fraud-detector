@@ -15,7 +15,7 @@ const Footer = () => {
                     <Shield className="text-blue-400" size={24} />
 
                     <h3 className="font-['Space_Grotesk'] text-xl font-bold text-blue-300">
-                        HireSafe AI
+                        hiresafeAI
                     </h3>
                 </div>
 
@@ -24,7 +24,10 @@ const Footer = () => {
                         Privacy Notice
                     </a>
 
-                    <a href="#" className="hover:text-cyan-300">
+                    <a
+                        href="mailto:aanchalpal2009@gmail.com"
+                        className="hover:text-cyan-300"
+                    >
                         Contact
                     </a>
                 </div>
@@ -34,7 +37,7 @@ const Footer = () => {
                 </p>
 
                 <p className="text-xs text-gray-600">
-                    © 2026 HireSafe AI
+                    © 2026 hiresafeAI
                 </p>
             </div>
         </motion.footer>

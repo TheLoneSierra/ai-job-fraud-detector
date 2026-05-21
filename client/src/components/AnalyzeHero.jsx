@@ -6,8 +6,7 @@ const AnalyzeHero = () => {
             </h1>
 
             <p className="max-w-2xl text-lg text-gray-400">
-                Upload screenshots, PDFs, recruiter emails, or pasted text
-                to detect recruitment scam patterns using AI-powered analysis.
+                Upload content to detect recruitment scams.
             </p>
         </div>
     );

@@ -21,7 +21,7 @@ const Navbar = () => {
                     <Shield className="text-blue-400" size={28} />
 
                     <h1 className="font-['Space_Grotesk'] text-2xl font-bold text-blue-300">
-                        HireSafe AI
+                        hiresafeAI
                     </h1>
                 </div>
 

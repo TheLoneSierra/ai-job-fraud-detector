@@ -2,7 +2,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // Model order: try default first, then fallbacks.

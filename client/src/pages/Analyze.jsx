@@ -7,18 +7,50 @@ import UploadBox from "../components/UploadBox";
 import TextInputBox from "../components/TextInputBox";
 import WarningPanel from "../components/WarningPanel";
 import FeatureStrip from "../components/FeatureStrip";
-import { analyzeScamText } from "../services/analysisService";
+import { analyzeScamText, extractDocumentText } from "../services/analysisService";
 
 const Analyze = () => {
     const [text, setText] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+    const [fileTextReady, setFileTextReady] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [extracting, setExtracting] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleFileChange = (file) => {
+    const handleFileChange = async (file) => {
         setSelectedFile(file || null);
+        setFileTextReady(false);
         setError("");
+
+        if (!file) {
+            return;
+        }
+
+        try {
+            setExtracting(true);
+            const extractedText = (await extractDocumentText(file)).trim();
+
+            if (!extractedText) {
+                return;
+            }
+
+            setFileTextReady(true);
+            setText((currentText) => {
+                const trimmedCurrent = currentText.trim();
+
+                if (!trimmedCurrent) {
+                    return extractedText;
+                }
+
+                return `${trimmedCurrent}\n\n${extractedText}`;
+            });
+        } catch (err) {
+            console.error(err);
+            setError(err.message || "Could not extract text from this document.");
+        } finally {
+            setExtracting(false);
+        }
     };
 
     const handleAnalyze = async () => {
@@ -30,7 +62,10 @@ const Analyze = () => {
         try {
             setLoading(true);
             setError("");
-            const result = await analyzeScamText({ text: text.trim(), file: selectedFile });
+            const result = await analyzeScamText({
+                text: text.trim(),
+                file: fileTextReady ? null : selectedFile,
+            });
 
             if (!result || typeof result !== "object") {
                 throw new Error("Invalid analysis response");
@@ -57,11 +92,11 @@ const Analyze = () => {
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
                     <div className="lg:col-span-8">
                         <div className="grid gap-6">
-                            <UploadBox file={selectedFile} onFileChange={handleFileChange} />
-
-                            <div className="flex items-center justify-center py-2 text-sm uppercase tracking-[0.35em] text-gray-500">
-                                OR
-                            </div>
+                            <UploadBox
+                                file={selectedFile}
+                                onFileChange={handleFileChange}
+                                extracting={extracting}
+                            />
 
                             <TextInputBox
                                 text={text}
@@ -69,6 +104,7 @@ const Analyze = () => {
                                 loading={loading}
                                 onAnalyze={handleAnalyze}
                                 selectedFile={selectedFile}
+                                extracting={extracting}
                             />
 
                             {error && (
