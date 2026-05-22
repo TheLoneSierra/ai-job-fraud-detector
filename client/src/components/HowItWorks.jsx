@@ -6,7 +6,7 @@ const steps = [
         icon: Upload,
         title: "Upload",
         description:
-            "Upload suspicious screenshots, PDFs, recruiter emails, or messages.",
+            "Upload suspicious screenshots, recruiter emails, or messages.",
     },
     {
         icon: BrainCircuit,

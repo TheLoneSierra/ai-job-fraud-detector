@@ -13,6 +13,9 @@ export const connectDB = async () => {
     return null;
   }
 
+  // This prevents cache from staying disabled due to an earlier transient error.
+  connectionPromise = null;
+
   if (mongoose.connection.readyState === 1) {
     return mongoose.connection;
   }

@@ -1,12 +1,9 @@
 import fs from "fs/promises";
-import pdfParse from "pdf-parse";
 import { createWorker } from "tesseract.js";
 
-const isPdf = (mimetype, filename) =>
-  mimetype === "application/pdf" || filename.toLowerCase().endsWith(".pdf");
-
 const isImage = (mimetype, filename) =>
-  mimetype?.startsWith("image/") || /\.(png|jpe?g|bmp|gif|tiff?)$/i.test(filename);
+  mimetype?.startsWith("image/") ||
+  /\.(png|jpe?g|bmp|gif|tiff?)$/i.test(filename);
 
 const cleanOcrText = (text) => {
   const normalized = String(text || "")
@@ -33,8 +30,9 @@ const cleanOcrText = (text) => {
       const usefulWords = (line.match(/[a-z0-9@:/.-]{3,}/gi) || []).length;
       const usefulRatio = lettersAndNumbers / line.length;
       const looksLikeBrowserChrome =
-        /\b(gmail|compose|inbox|snoozed|sent|labels|more|reply|forward|upgrade)\b/i.test(line) &&
-        usefulWords <= 3;
+        /\b(gmail|compose|inbox|snoozed|sent|labels|more|reply|forward|upgrade)\b/i.test(
+          line,
+        ) && usefulWords <= 3;
 
       return usefulRatio >= 0.45 && usefulWords >= 1 && !looksLikeBrowserChrome;
     })
@@ -46,12 +44,6 @@ const cleanOcrText = (text) => {
 export const extractTextFromFile = async (filePath, mimetype, filename) => {
   if (!filePath) {
     return "";
-  }
-
-  if (isPdf(mimetype, filename)) {
-    const fileBuffer = await fs.readFile(filePath);
-    const parsed = await pdfParse(fileBuffer);
-    return parsed?.text?.trim() || "";
   }
 
   if (isImage(mimetype, filename)) {

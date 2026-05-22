@@ -51,7 +51,7 @@ const UploadBox = ({ file, onFileChange, extracting }) => {
             <h2 className="mb-3 text-2xl font-semibold text-white">Drag & Drop Files</h2>
 
             <p className="mb-6 max-w-md text-gray-400">
-                Upload suspicious screenshots, PDFs, recruiter emails, or offer letters for AI-powered scam detection.
+                Upload suspicious screenshots, recruiter emails, or offer letters for AI-powered scam detection.
             </p>
 
             <button
@@ -72,7 +72,7 @@ const UploadBox = ({ file, onFileChange, extracting }) => {
                 </p>
             )}
 
-            <p className="mt-5 text-sm text-gray-500">Supported formats: PNG, JPG, PDF, TXT</p>
+            <p className="mt-5 text-sm text-gray-500">Supported formats: PNG, JPG, TXT</p>
         </div>
     );
 };

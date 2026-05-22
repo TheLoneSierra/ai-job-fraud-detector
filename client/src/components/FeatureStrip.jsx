@@ -12,7 +12,7 @@ const items = [
     },
     {
         icon: FileSearch,
-        title: "PDF Analysis",
+        title: "PNG/TXT/JPG Analysis",
     },
     {
         icon: ScanLine,
