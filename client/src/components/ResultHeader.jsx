@@ -21,14 +21,15 @@ const ResultHeader = ({ data }) => {
     const sourceLabel = data?.source || (data?.sourceFile ? "Uploaded document" : "Text Input");
     const cache = data?.cache;
     const cacheLabel =
-        cache?.status === "cache-first" ? "Loaded from cache" : `Intel cache: ${cache?.status}`;
+        cache?.status === "cache-first"
+            ? "Loaded from cache (Gemini was cached after traffic)"
+            : `Intel cache: ${cache?.status}`;
+
     const reportDate = new Date().toLocaleString();
 
     const downloadReportPdf = async () => {
         const { default: jsPDF } = await import("jspdf");
 
-        // In real deployments, dynamic imports can fail due to bundler splitChunks/base-path.
-        // If anything goes wrong, we fall back to downloading a .txt report.
 
 
 

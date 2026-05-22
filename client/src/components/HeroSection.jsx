@@ -32,7 +32,7 @@ const HeroSection = () => {
                         </button>
 
                         <a
-                            href="#"
+                            href="https://www.loom.com/share/3b3c9ecc1f38478b990dfd9f2290c21a"
                             target="_blank"
                             rel="noreferrer"
                             className="rounded-xl border border-white/10 px-8 py-4 text-center text-white transition hover:bg-white/5"
