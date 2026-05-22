@@ -16,7 +16,7 @@ const features = [
     },
     {
         icon: FileText,
-        title: "PDF & Screenshot Analysis",
+        title: "Text & Screenshot Analysis",
         description:
             "Deep scanning of screenshots and uploaded documents.",
     },
